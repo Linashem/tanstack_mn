@@ -4,6 +4,21 @@
       "id": 1,
       "title": "Learn React Query",
       "completed": true
+    },
+    {
+      "id": 2,
+      "title": "Learn React Query 2",
+      "completed": true
+    },
+    {
+      "title": "react",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "title": "new todo",
+      "completed": false,
+      "id": 4
     }
   ]
 }
