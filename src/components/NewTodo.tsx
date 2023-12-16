@@ -2,6 +2,7 @@ import { Button, Input, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTodo } from "../services/todos";
+import { Todo } from "../types/todo";
 
 const NewTodo = () => {
   const [title, setTitle] = useState("");
@@ -9,8 +10,13 @@ const NewTodo = () => {
 
   const { mutate } = useMutation({
     mutationFn: createTodo,
-    onSuccess: () => {
-      client.invalidateQueries({ queryKey: ["todos", "all"] });
+    // onSuccess: () => {
+    //   client.invalidateQueries({ queryKey: ["todos", "all"] });
+    // },
+    onSuccess: (newTodo) => {
+      client.setQueriesData<Todo[]>(["todos", "all"], (oldTodos) => {
+        return [...(oldTodos || []), newTodo];
+      });
     },
   });
 
