@@ -1,10 +1,15 @@
 import { List, Spinner, useToast } from "@chakra-ui/react";
 import { TodoItem } from "./TodoItem";
 import { useTodosQuery } from "../hooks/useTodosQuery";
+import { TodoState } from "../types/todo";
 
-const TodoList = () => {
-  const { data, isLoading, isSuccess, error  } = useTodosQuery()
-  
+type TodoListProps = {
+  state: TodoState;
+};
+
+const TodoList:React.FC<TodoListProps> = ( {state}) => {
+  const { data, isLoading, isSuccess, error } = useTodosQuery(state);
+
   const toast = useToast();
 
   if (isLoading)
@@ -18,12 +23,13 @@ const TodoList = () => {
       />
     );
 
-  if(error) return  toast({
-    status: "error",
-    title: error.message,
-    isClosable: true,
-    position: "top-right",
-  }); 
+  if (error)
+    return toast({
+      status: "error",
+      title: error.message,
+      isClosable: true,
+      position: "top-right",
+    });
   return (
     <List>
       {isSuccess && data.map((todo) => <TodoItem key={todo.id} {...todo} />)}

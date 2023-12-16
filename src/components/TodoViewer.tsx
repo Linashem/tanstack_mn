@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { TodoState } from '../types/todo';
 import { TodoList } from './TodoList';
 
+
+
 const TodoViewer = () => {
   const [view, setView] = useState<TodoState>('all');
 
@@ -29,7 +31,7 @@ const TodoViewer = () => {
         </Button>
       </ButtonGroup>
 
-      <TodoList />
+      <TodoList state={view} />
     </Stack>
   );
 };
