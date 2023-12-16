@@ -17,6 +17,10 @@ const NewTodo = () => {
       client.setQueriesData<Todo[]>(["todos", "all"], (oldTodos) => {
         return [...(oldTodos || []), newTodo];
       });
+      client.invalidateQueries({
+        queryKey:['todos', 'all'],
+        refetchType:"none"
+      })
     },
   });
 
